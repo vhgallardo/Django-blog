@@ -1,0 +1,28 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Agregar Categoría</h4>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'add_category' %}" method="POST" id="AddCategory">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group has-label">
+                            <label>Nombre <star class="star">*</star></label>
+                            <input type="text" class="form-control" placeholder="Nombre" name="name" id="name" required="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <br>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Agregar</button>
+                        </div>                        
+                    </div>
+                </div>                
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>
+

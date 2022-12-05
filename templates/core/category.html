@@ -1,0 +1,72 @@
+{% extends 'layouts/core/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="alert alert-success" role="alert">
+                        Todos los post de la categoria: <strong>{{ category }}</strong>
+                    </div>
+                    <div class="blog_left_sidebar">
+                        {% for p in category.get_posts.all %}
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{ p.image.url }}" alt="">
+                                <a href="#" class="blog_item_date">
+                                    <h3>{{p.created|date:"d"}}</h3>
+                                    <p>{{p.created|date:"M"}}</p>
+                                </a>
+                            </div>
+                            <div class="blog_details">
+                                <ul class="blog-info-link">
+                                    <li><a href="{% url 'author' p.author.id %}"><i class="fa fa-user"></i> {{ p.author }}</a></li>
+                                </ul>
+                                <br>
+                                <a class="d-inline-block" href="{% url 'detail' p.id %}">
+                                    <h2 class="blog-head" style="color: #2d2d2d;">{{p.title}}</h2>
+                                </a>
+                                <p>{{ p.excerp }}</p>
+
+                                <div class="desc">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">                                            
+                                        </div>
+                                        <div class="reply-btn">
+                                            <a href="#" class="btn-reply">seguir leyendo</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="blog-info-link">
+                                    <li><a href="{% url 'category' p.category.id %}"><i class="fa fa-user"></i> {{ p.category }}</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                        {% empty %}
+                        <div class="alert alert-danger" role="alert">
+                            No hay post para la categoria: <strong>{{ category }}</strong>
+                        </div>
+                        {% endfor %}
+                        <hr>
+                        <div class="desc">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <input type="button" class="button primary-bg text-white w-100 btn_1 boxed-btn" value="Volver al Inicio" onclick=" relocate_home()">
+                                </div>
+                                <div class="reply-btn">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+<script>
+    function relocate_home()
+    {
+        location.href = "{% url 'index' %}";
+    } 
+</script>
+{% endblock %}

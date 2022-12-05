@@ -1,0 +1,24 @@
+{% extends 'layouts/core/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-lg-8 mb-5 mb-lg-0">
+    <div class="wrapper vh-100">
+        <div class="align-items-center h-100 d-flex w-50 mx-auto">
+          <div class="mx-auto text-center">
+            <h1 class="display-1 m-0 font-weight-bolder text-muted" style="font-size:150px;">404</h1>
+            <h1 class="mb-1 text-muted font-weight-bold">OOPS!</h1>
+            <h6 class="mb-3 text-muted">Página no encontrada.</h6>
+            <input type="button" class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" value="Volver al Inicio" onclick=" relocate_home()">
+          </div>
+        </div>
+      </div>
+</div>    
+<script>
+  function relocate_home()
+  {
+    location.href = "{% url 'index' %}";
+  } 
+  </script>
+{% endblock %}

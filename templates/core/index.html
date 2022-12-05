@@ -1,0 +1,89 @@
+{% extends 'layouts/core/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+                <div class="col-lg-8 mb-5 mb-lg-0">                    
+                    <div class="blog_left_sidebar">
+                        {% for p in posts %}
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{ p.image.url }}" alt="">
+                                <a href="#" class="blog_item_date">
+                                    <h3>{{p.created|date:"d"}}</h3>
+                                    <p>{{p.created|date:"M"}}</p>
+                                </a>
+                            </div>
+                            <div class="blog_details">
+                                <ul class="blog-info-link">
+                                    <li><a href="{% url 'author' p.author.id %}"><i class="fa fa-user"></i> {{ p.author }}</a></li>
+                                </ul>
+                                <br>
+                                <a class="d-inline-block" href="{% url 'detail' p.id %}">
+                                    <h2 class="blog-head" style="color: #2d2d2d;">{{p.title}}</h2>
+                                </a>
+                                <p>{{ p.excerp }}</p>
+
+                                <div class="desc">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">                                            
+                                        </div>
+                                        <div class="reply-btn">
+                                            <a href="{% url 'detail' p.id %}" class="btn-reply">seguir leyendo</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="blog-info-link">
+                                    <li><a href="{% url 'category' p.category.id %}"><i class="fa fa-user"></i> {{ p.category }}</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                        {% endfor %}
+                        <hr>
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                
+                                    <li class="page-item">
+                                        <a href="?page=1" class="page-link" aria-label="Previous">
+                                            <i class="ti-angle-left"></i>
+                                            <i class="ti-angle-left"></i>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="page-item {% if posts.number == 1 %}disabled {% endif %}">
+                                        <a href="{% if posts.number != 1 %}?page={{ posts.previous_page_number }}{% endif %}" class="page-link" aria-label="Previous">
+                                            <i class="ti-angle-left"></i>
+                                        </a>
+                                    </li>
+
+                                {% for i in total_pages %}
+                                <li class="page-item {% if posts.number == forloop.counter %} active {% endif %}">
+                                    <a href="?page={{ forloop.counter }}" class="page-link">{{ forloop.counter }}</a>
+                                </li>
+                                {% endfor %}
+                                
+                                                                  
+                                    <li class="page-item {% if posts.number == posts.paginator.num_pages %}disabled {% endif %}">
+                                        <a href="{% if posts.number != posts.paginator.num_pages %}?page={{ posts.next_page_number }}{% endif %}" class="page-link" aria-label="Next">
+                                            <i class="ti-angle-right"></i>
+                                        </a>
+                                    </li>
+                                   
+                                    <li class="page-item">
+                                        <a href="?page={{ posts.paginator.num_pages }}" class="page-link" aria-label="Next">
+                                            <i class="ti-angle-right"></i>
+                                            <i class="ti-angle-right"></i>
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                        </hr>
+                    </div> 
+                </div>
+                <!-- barra lateral -->
+{% endblock %}

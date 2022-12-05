@@ -1,0 +1,74 @@
+{% extends 'layouts/dashboard/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Categorías</h4>
+            <br>
+            <div class="col-md-12 text-left">
+                <button type="button" class="btn btn-info btn-fill btn-wd" data-bs-toggle="modal" data-bs-target="#addCategories">Agregar Categorías</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-body table-full-width table-responsive">
+                <table class="table" id="bootstrap-table">
+                    <thead>
+                        <th data-sortable="true">ID</th>
+                        <th data-sortable="true">Nombre</th>
+                        <th data-sortable="true">Activo</th>
+                        <th data-sortable="true">Fecha creación</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                        {% for c in categories %}
+                            <tr>
+                                <td>{{c.id}}</td>
+                                <td>{{c.name}}</td>
+                                <td>
+                                    {% if c.active %}
+                                        <button type="button" rel="tooltip" title="Activo" class="btn btn-success btn-simple btn-link">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    {% else %}
+                                        <button type="button" rel="tooltip" title="No activo" class="btn btn-danger btn-simple btn-link">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    {% endif %} 
+                                </td>
+                                <td>{{c.created}}</td>
+                                <td>
+                                    <button type="button" rel="tooltip" title="Editar Tag" class="btn btn-info btn-simple btn-link">
+                                        <i class="fa fa-edit"></i>
+                                        </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Mini Modal -->
+    <div class="modal fade modal-lg" id="addCategories" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% include 'dashboard/add_category.html' %}
+            </div>
+            <!--<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

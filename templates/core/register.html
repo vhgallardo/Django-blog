@@ -1,0 +1,48 @@
+{% extends 'layouts/core/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="col-md-8">
+    {{ error }}
+    <form id="RegisterValidation" method="POST">
+        {% csrf_token %}
+        <div class="card ">
+            <div class="card-header ">
+                <h4 class="card-title">Registro</h4>
+            </div>
+            <div class="card-body ">
+                <div class="form-group has-label">
+                    <label>
+                        Usuario
+                        <star class="star">*</star>
+                    </label>
+                <input class="form-control" name="username" type="text" required="true" />
+                </div>
+                <div class="form-group has-label">
+                    <label>
+                        Contraseña
+                        <star class="star">*</star>
+                    </label>
+                    <input class="form-control" name="password" id="registerPassword" type="password" required="true" />
+                </div>
+                <div class="form-group has-label">
+                    <label>
+                        Confirma contraseña
+                        <star class="star">*</star>
+                    </label>
+                    <input class="form-control" name="password_confirmation" id="registerPasswordConfirmation" type="password" required="true" equalTo="#registerPassword" />
+                </div>
+                <div class="card-category form-category">
+                    <star class="star">*</star> Campos requeridos
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <button type="submit" class="button button-contactForm boxed-btn">Registrarse</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </form>
+</div>
+    {% endblock %}
