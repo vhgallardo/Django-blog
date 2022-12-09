@@ -27,22 +27,32 @@ def index(request):
 
 def contact(request):
     title = 'Contacto'
-    contact_form = ContactForm()
+    form = ContactForm()
     if request.method == 'POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        message = request.POST['message']
-        html = render_to_string('emails/contactform.html',{
-            'name':name,
-            'email':email,
-            'message':message
-        })
-        #print(request.POST)
-        send_mail(request.POST['subject'],request.POST['message'],request.POST['email'],['vitoko.hgd@gmail.com'],html_message=html)
+        if form.is_valid():    
+            name = request.POST['name']
+            email = request.POST['email']
+            message = request.POST['message']
+            html = render_to_string('emails/contactform.html',{
+                'name':name,
+                'email':email,
+                'message':message
+            })
+            #print(request.POST)
+            send_mail(request.POST['subject'],request.POST['message'],request.POST['email'],['vitoko.hgd@gmail.com'],html_message=html)
+        else:
+            print('error')
+    else:
+
+        data = {
+            'title':title,
+            'form':form
+        }
+        return render(request, 'core/contact.html',data)
     data = {
-        'title':title,
-        'form':contact_form
-    }
+            'title':title,
+            'form':form
+        }
     return render(request, 'core/contact.html',data)
 
 def detail(request, post_id):
